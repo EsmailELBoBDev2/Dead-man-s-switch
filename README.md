@@ -8,7 +8,7 @@ ___
 * Linux: Create a `.sh` file and type:
 ```
 #!/bin/sh 
-{Your Terminal Name's Here, EX: xfce4-terminal} --command "python3.8 test.py"
+{Your Terminal Name's Here, EX: xfce4-terminal} --command "python3.8 script.py"
 ```
 then move the script to your home dir
 
@@ -20,4 +20,4 @@ start "Dead Man's Switch" "{Your Script Dir}"
 ```
 then move that file to startup folder or press win + r and type `shell:startup`
 ___
-If you getting error and can't login using your gmail then go to: https://myaccount.google.com/lesssecureapps then click to allow it
+If you are getting error and can't login using your gmail then go to: https://myaccount.google.com/lesssecureapps then click to allow it
