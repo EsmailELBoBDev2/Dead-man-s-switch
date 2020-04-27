@@ -21,10 +21,10 @@ def add_day():
 def send_email():
     s = smtplib.SMTP('smtp.gmail.com', 587)
     s.starttls()
-    s.login("esmailelbob01124320019@gmail.com", "01141477793") #Type your email and password here
+    s.login("Your_Email@gmail.com", "Your_Password") #Type your email and password here
     s.set_debuglevel(1)
     msg = MIMEText("""Hey, Test""") #Type your message here
-    sender = 'esmailelbob01124320019@gmail.com' #Again, type your email here
+    sender = 'Your_Email@gmail.com' #Again, type your email here
     recipients = ['john.doe@example.com', 'john.smith@example.co.uk'] #type people to send them the email here
     msg['Subject'] = "I'm dead" #subject of the email
     msg['From'] = sender
