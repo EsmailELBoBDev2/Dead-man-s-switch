@@ -10,7 +10,6 @@ from datetime import datetime, timedelta, date
 
 
 
-
 ##  Check for days, If date right and if not i will send emails  
 def check_day():
     try:
@@ -39,7 +38,7 @@ def check_day():
 
 ## Checks password right
 def login():
-    user_password = input("Please type your password: ") ## Here is your pass-code. If it's right the file will be written in tomorrow's date
+    user_password = input("Please type your password(or `exit` to leave): ") ## Here is your pass-code. If it's right the file will be written in tomorrow's date
 
     if user_password.lower() == "password": ##do not forget change this one too! 
         input("\n\nGlad to hear that you are alive!\ncome back tmr!\n\n(Press Enter To Leave!)\n\n")
@@ -47,7 +46,7 @@ def login():
         check_day()
 
     elif user_password.lower() == "exit":
-        kill = 'pkill -f test.py'
+        kill = 'pkill -f ' + os.path.basename(__file__) ## `os.path.basename(__file__)` code gets current name of this script so no need to update the name here everytime you change the script's name
         os.system(kill)
 
 
@@ -62,6 +61,10 @@ def login():
                     check_day()
                     return True
                     break
+                elif user_password_again.lower() == "exit":
+                    kill = 'pkill -f ' + os.path.basename(__file__) ## `os.path.basename(__file__)` code gets current name of this script so no need to update the name here everytime you change the script's name
+                    break
+
         if retry_password() != True:
             print("\n\nSeems you dead, RIP i'm going to send emails now\n\n")
             send_email()
@@ -97,11 +100,12 @@ def add_day():
 def send_email():
     s = smtplib.SMTP('smtp.gmail.com', 587)
     s.starttls()
-    s.login("YOUR_USERNAME@gmail.com", "YOUR_PASSWORD") # Type your email and password here to login
+    s.login("{YOUR EMAIL}@gmail.com", "{YOUR PASSWORD}") ##Type your email and password here
     s.set_debuglevel(1)
-    msg = MIMEText("""Hey, Test""") ##Type your message here
-    sender = 'YOUR_USERNAME@gmail.com' ##Again, type your email here
-    recipients = ['YOU_FRIEND_EMAIL@gmail.com', 'YOUR_FAMILY_EMAIL@hotmail.com', 'YOUR_TEACHER@yahoo.com'] # Type people to send them the email here    msg['Subject'] = "I'm dead" ##subject of the email
+    msg = MIMEText("""BODY OF THE EMAIL (The message)""") ##Type your message here
+    sender = '{YOUR EMAIL}@gmail.com' ##Again, type your email here
+    recipients = ['{YOUR Friend}@gmail.com', '{Your Family}@hotmail.com', '{Your Teacher}@yahoo.com'] ##type people to send them the email here
+    msg['Subject'] = "SUBJECT OF THE EMAIL (The Title/Name)" ##subject of the email
     msg['From'] = sender
     msg['To'] = ", ".join(recipients)
     s.sendmail(sender, recipients, msg.as_string())
