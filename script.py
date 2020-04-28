@@ -1,9 +1,11 @@
 import smtplib
-import time
+import threading
+import os
+
+import cronus.beat as beat ## Install it `pip install cronus`, it's what make me repeat the notification code
 from email.mime.text import MIMEText
 from datetime import datetime, timedelta, date
-from itertools import islice
-from notify_run import Notify ## Install it `pip install notify-run`
+from notify_run import Notify ## Install it `pip install notify-run`, it's what make me send you the notifications
 
 
 
@@ -30,7 +32,7 @@ def check_day():
         elif tmr_file != str(date.today()):
             send_email()
     except FileNotFoundError:
-        input("Please create a file called 'tmr_date.txt' and 'today_date.txt'\n\n(Press Enter To Leave!) ")
+        input("Please create a file called 'tmr_date.txt' and 'today_date.txt'\n\n(Press Enter To Leave!)\n\n")
     
 
 ## Checks password right
@@ -38,21 +40,38 @@ def login():
     user_password = input("Please type your password: ") ## Here is your pass-code. If it's right the file will be written in tomorrow's date
 
     if user_password.lower() == "password": ##do not forget change this one too! 
-        input("Glad to hear that you are alive!\ncome back tmr!\n\n(Press Enter To Leave!) ")
+        input("\n\nGlad to hear that you are alive!\ncome back tmr!\n\n(Press Enter To Leave!)\n\n")
         add_day()
+        check_day()
 
-    elif user_password.lower != "password": ##and this!
-        def retry():
-            for password in range(3):
+    elif user_password.lower() == "exit":
+        kill = 'pkill -f test.py'
+        os.system(kill)
+
+
+    elif user_password.lower() != "password": ##and this!
+        def retry_password():
+            
+            for password_again in range(3):
                 user_password_again = input("Password is wrong, Please type your password: ")
-                if user_password_again.lower() == "password" :
-                    return "Logged in"
+                if user_password_again.lower() == "password":
+                    input("\n\nGlad to hear that you are alive!\ncome back tmr!\n\n(Press Enter To Leave!)\n\n")
+                    add_day()
+                    check_day()
+                    return True
                     break
-
-        if retry() != "Logged in" :
+        if retry_password() != True:
             print("\n\nSeems you dead, RIP i'm going to send emails now\n\n")
             send_email()
-            input("\n\nEmails, Sent!\n\n(Press Enter To Leave!) ")
+            input("\n\nEmails, Sent!\n\n(Press Enter To Leave!)\n\n")
+            check_day()
+
+
+
+
+
+
+
 
 ## Adds day on today's date to check next time when you open
 def add_day():
@@ -90,29 +109,21 @@ def send_email():
 
 
 
-
-
-            
-
-
 ## Enable it when you are on phone, due its useless on PC because script run on startup only but on phone it will be run most of time
-
 ## To make it works, install it inside your termux type `pip install notify-run` then type `notify-run register` and go to link and subscribe inside your browser and keep it open whole day (the borwser and the script)
-
-# def check_notify():
-#     notify = Notify()
-#     notify.send('Dead Man\'s Switch App\nDo not forget to Check Your Dead Man\'s switch app')
-
-#     time.sleep(60) ## Time in seconds - Checks Every 60 Seconds
-
-# while True:
-#     check_notify()
+def notify_repeter():
+    beat.set_rate(2) # 2 Hz(Hz = Seconds)
+    while beat.true():
+        notify = Notify()
+        notify.send('Dead Man\'s Switch App\nDo not forget to Check Your Dead Man\'s switch app')
 
 
+def notify_thereder():
+    notify_thread = threading.Thread(target=notify_repeter)
+    notify_thread.start()
 
-
-
+## Start Notification System
+notify_thereder()
 ## Start the app
 check_day()
-
 
