@@ -5,7 +5,9 @@ import time
 
 from email.mime.text import MIMEText
 from datetime import datetime, timedelta, date
-from notify_run import Notify ## Install it `pip install notify-run`, it's what make me send you the notifications
+## Install it `pip install notify-run`, it's what make me send you the notifications
+# from notify_run import Notify 
+
 
 
 
