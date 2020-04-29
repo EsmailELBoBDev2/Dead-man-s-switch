@@ -1,61 +1,79 @@
-import smtplib
-import threading
-import os
-import time
-
+import smtplib, threading, os, time, getpass, keyring ## Install it `pip install keyring`
 from email.mime.text import MIMEText
 from datetime import datetime, timedelta, date
 ## Install it `pip install notify-run`, it's what make me send you the notifications
 # from notify_run import Notify 
 
 
+def user_password():
+    app_name = 'Dead Man Swtich APP'
+    user_name = getpass.getuser()
+
+    if keyring.get_password(app_name, user_name) == "None":
+        user_password_input = input("Please enter your password(first time only): ")
+        keyring.set_password(app_name, user_name, user_password_input)
+        user_password = keyring.get_password(app_name, user_name)
+        return user_password
+
+    elif keyring.get_password(app_name, user_name) != "None":
+        user_password = keyring.get_password(app_name, user_name)
+        return user_password    
+
+# Read Dates from files 
+def read_from_files(fileName, accessMode):
+    try:
+        with open(fileName, accessMode) as name:
+            file = name.readline()
+        return file
+    except FileNotFoundError:
+        input("Please create a file called 'tmr_date.txt' and 'today_date.txt'\n\n(Press Enter To Leave!)\n\n")
+    except:
+        input("\n\nOops, something went wrong\n\n(Press Enter To Leave!)\n\n")   
+
+# Write Dates to files
+def write_to_files(fileName, accessMode, data):
+    try:
+        file = open(fileName, accessMode)
+        file.write(data)
+    except:
+        input("\n\nOops, something went wrong while writing date to files\n\n(Press Enter To Leave!)\n\n")    
+    finally:
+        file.close()
+
+
 
 ##  Check for days, If date right and if not i will send emails  
 def check_day():
-    try:
-        today_date = "today_date.txt"
-        tmr_date = "tmr_date.txt"
-        accessMode = "r"
-            
+    today_file = read_from_files("today_date.txt", "r")
+    tmr_file = read_from_files("tmr_date.txt", "r")
 
-        with open(today_date, accessMode) as today:
-            today_file = today.readline()
-        
-        with open(tmr_date, accessMode) as tmr:
-            tmr_file = tmr.readline()
-
-
-
-        if today_file == str(date.today()) or tmr_file == str(date.today()):
-            login()
-        elif today_file == "" or tmr_file == "":
-            login()
-        elif tmr_file != str(date.today()):
-            send_email()
-    except FileNotFoundError:
-        input("Please create a file called 'tmr_date.txt' and 'today_date.txt'\n\n(Press Enter To Leave!)\n\n")
+    if today_file == str(date.today()) or tmr_file == str(date.today()):
+        login()
+    elif today_file == "" or tmr_file == "":
+        login()
+    elif tmr_file != str(date.today()):
+        send_email()
     
 
 ## Checks password right
 def login():
-    user_password = input("Please type your password(or `exit` to leave): ") ## Here is your pass-code. If it's right the file will be written in tomorrow's date
+    user_password_input = input("Please type your password(or `exit` to leave): ") ## Here is your pass-code. If it's right the file will be written in tomorrow's date
 
-    if user_password.lower() == "password": ##do not forget change this one too! 
+    if user_password_input == user_password(): ##do not forget change this one too! 
         input("\n\nGlad to hear that you are alive!\ncome back tmr!\n\n(Press Enter To Leave!)\n\n")
         add_day()
         check_day()
 
-    elif user_password.lower() == "exit":
+    elif user_password_input.lower() == "exit":
         kill = 'pkill -f ' + os.path.basename(__file__) ## `os.path.basename(__file__)` code gets current name of this script so no need to update the name here everytime you change the script's name
         os.system(kill)
 
 
-    elif user_password.lower() != "password": ##and this!
+    elif user_password_input != user_password(): ##and this!
         def retry_password():
-            
             for password_again in range(3):
                 user_password_again = input("Password is wrong, Please type your password: ")
-                if user_password_again.lower() == "password":
+                if user_password_again.lower() == user_password():
                     input("\n\nGlad to hear that you are alive!\ncome back tmr!\n\n(Press Enter To Leave!)\n\n")
                     add_day()
                     check_day()
@@ -63,6 +81,7 @@ def login():
                     break
                 elif user_password_again.lower() == "exit":
                     kill = 'pkill -f ' + os.path.basename(__file__) ## `os.path.basename(__file__)` code gets current name of this script so no need to update the name here everytime you change the script's name
+                    return True
                     break
 
         if retry_password() != True:
@@ -81,20 +100,9 @@ def login():
 ## Adds day on today's date to check next time when you open
 def add_day():
     EndDate = date.today() + timedelta(days=1) ##It will add one more day on today's date so feel free to change "days" if you want it add 2 days or more instead.
-    try:
-        today_date = "today_date.txt"
-        tmr_date = "tmr_date.txt"
-        accessMode = "w"
-        
-        today = open(today_date, accessMode)
-        tmr = open(tmr_date, accessMode)
-        today.write(str(date.today()))
-        tmr.write(str(EndDate))
-    except:
-        print("There is an error!")
-    finally:
-        today.close()
-        tmr.close()
+
+    today = write_to_files("today_date.txt", "w", str(date.today()))
+    tmr = write_to_files("today_date.txt", "w", str(EndDate))
             
 ## Sends emails to people you mentioned after you die
 def send_email():
@@ -128,7 +136,7 @@ def send_email():
 #     notify_thread = threading.Thread(target=notify_repeter)
 #     notify_thread.start()
 
-# ## Start Notification System
+## Start Notifications System
 # notify_thereder()
 ## Start the app
 check_day()
