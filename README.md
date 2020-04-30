@@ -1,7 +1,7 @@
 # Dead-man's-switch
 An open source alt for https://www.deadmansswitch.net/ that written in python
 ___
-Still working on it!
+**I'm done now from developing it** *but that does not mean when idea come to my head i won't add it it just you wont find the script updates daily or something and your ideas, bugs, questions or anything are welcomed to issues requestes*
 ___
 ## If you want to run the script on startup:
 
