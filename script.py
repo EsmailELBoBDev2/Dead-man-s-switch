@@ -18,7 +18,7 @@ def check_day():
         login()
     elif today_file == "" and tmr_file == "" and tmr_file_hash == "":
         login()
-    else :
+    else:
         send_email()
 
 
@@ -26,7 +26,7 @@ def check_day():
 def login():
     user_password_input = input("Please type your password(or `exit` to leave or press ctrl + c): ") ## Here is your pass-code. If it's right the file will be written in tomorrow's date
 
-    if user_password_input == user_password(): ##do not forget change this one too! 
+    if user_password_input == user_password():
         input("\n\nGlad to hear that you are alive!\ncome back tmr!\n\n(Press Enter To Leave!)\n\n")
         add_day()
         check_day()
@@ -36,7 +36,7 @@ def login():
         os.system(kill)
 
 
-    elif user_password_input != user_password(): ##and this!
+    elif user_password_input != user_password():
         def retry_password():
             for password_again in range(3):
                 user_password_again = input("Password is wrong, Please type your password: ")
