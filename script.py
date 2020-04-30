@@ -11,13 +11,14 @@ def check_day():
     tmr_file = read_from_files("tmr_date.txt", "r")
     tmr_file_hash = read_from_files("tmr_date_hash.txt", "r")
             
-    if tmr_file == str(date.today()) and tmr_file_hash == str(encrypt_date(date.today())):
-        login()
-    elif today_file == str(date.today()):
+    if today_file != str(date.today()):
+        input("\n\nYou already checked today, Please come next day!\n\n(Press Enter To Leave!)\n\n")
+        exit()
+    elif tmr_file == str(date.today()) and tmr_file_hash == str(encrypt_date(date.today())):
         login()
     elif today_file == "" and tmr_file == "" and tmr_file_hash == "":
         login()
-    else:
+    else :
         send_email()
 
 
