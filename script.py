@@ -7,19 +7,27 @@ from datetime import datetime, timedelta, date
 
 ##  Check for days, If date right and if not i will send emails  
 def check_day():
-    today_file = read_from_files("today_date.txt", "r")
-    tmr_file = read_from_files("tmr_date.txt", "r")
-    tmr_file_hash = read_from_files("tmr_date_hash.txt", "r")
-            
-    if today_file == str(date.today()):
-        input("\n\nYou already checked today, Please come next day!\n\n(Press Enter To Leave!)\n\n")
+    ## Checks if list "out or range" or in other words that file is empty it will set values to nothing to make you login
+    try:
+        today_date = read_from_files("data.txt", "r")[1]
+        tomorrow_date = read_from_files("data.txt", "r")[4]
+        tomorrow_date_hash = read_from_files("data.txt", "r")[7]
+    except IndexError:
+        today_date = []
+        tomorrow_date = []
+        tomorrow_date_hash = []
+
+    if today_date == str(date.today()) + "\n":
+        input("\n\nYou already checked today, Please come tomorrow!\n\n(Press Enter To Leave!)\n\n")
         exit()
-    elif tmr_file == str(date.today()) and tmr_file_hash == str(encrypt_date(date.today())):
+    elif tomorrow_date == str(date.today()) + "\n" and tomorrow_date_hash == str(encrypt_date(date.today())) + "\n":
         login()
-    elif today_file == "" and tmr_file == "" and tmr_file_hash == "":
+    elif today_date == [] and tomorrow_date == [] and tomorrow_date_hash == []:
         login()
     else:
         send_email()
+        check_day()
+
 
 
 ## Checks password right
@@ -27,9 +35,7 @@ def login():
     user_password_input = input("Please type your password(or `exit` to leave or press ctrl + c): ") ## Here is your pass-code. If it's right the file will be written in tomorrow's date
 
     if user_password_input == user_password():
-        input("\n\nGlad to hear that you are alive!\ncome back tmr!\n\n(Press Enter To Leave!)\n\n")
         add_day()
-        check_day()
 
     elif user_password_input.lower() == "exit":
         kill = 'pkill -f ' + os.path.basename(__file__) ## `os.path.basename(__file__)` code gets current name of this script so no need to update the name here everytime you change the script's name
@@ -41,9 +47,7 @@ def login():
             for password_again in range(3):
                 user_password_again = input("Password is wrong, Please type your password: ")
                 if user_password_again.lower() == user_password():
-                    input("\n\nGlad to hear that you are alive!\ncome back tmr!\n\n(Press Enter To Leave!)\n\n")
                     add_day()
-                    check_day()
                     return True
                     break
                 elif user_password_again.lower() == "exit":
@@ -52,9 +56,7 @@ def login():
                     break
 
         if retry_password() != True:
-            print("\n\nSeems you dead, RIP i'm going to send emails now\n\n")
             send_email()
-            input("\n\nEmails, Sent!\n\n(Press Enter To Leave!)\n\n")
             check_day()
 
 
@@ -75,14 +77,13 @@ def user_password():
 
 ## Adds day on today's date to check next time when you open
 def add_day():
+    input("\n\nGlad to hear that you are alive!\ncome back tomorrow!\n\n(Press Enter To Leave!)\n\n")
+    
     # decrypt = base64.decodebytes(today_date)
     # decrypt2 = base64.decodebytes(end_date)
-    today = write_to_files("today_date.txt", "w", str(date.today()))
 
-    tmr_date_encrypt = str(encrypt_date(date.today() + timedelta(days=1)))
-    tmr_hash = write_to_files("tmr_date_hash.txt", "w", tmr_date_encrypt)
-    tmr = write_to_files("tmr_date.txt", "w", str(date.today() + timedelta(days=1)))
-
+    data = write_to_files("data.txt", "w", "Today Date: " + "\n" + str(date.today()) + "\n\n" + "Tomorrow Date: " + "\n" + str(date.today() + timedelta(days=1)) + "\n\n" + "Tomorrow Hash: " + "\n" + str(encrypt_date(date.today() + timedelta(days=1))) + "\n\n")
+    
 
 ## To ensure safty of saved dates
 def encrypt_date(data):
@@ -96,10 +97,10 @@ def encrypt_date(data):
 def read_from_files(fileName, accessMode):
     try:
         with open(fileName, accessMode) as name:
-            file = name.readline()
+            file = name.readlines()
         return file
     except FileNotFoundError:
-        input("Please create a file called 'tmr_date.txt', 'today_date.txt' and 'tmr_date_hash.txt'\n\n(Press Enter To Leave!)\n\n")
+        input("Please create a file called 'data.txt'\n\n(Press Enter To Leave!)\n\n")
     except:
         input("\n\nOops, something went wrong\n\n(Press Enter To Leave!)\n\n")   
 
@@ -118,6 +119,8 @@ def write_to_files(fileName, accessMode, data):
 
 ## Sends emails to people you mentioned after you die
 def send_email():
+    print("\n\nSeems you dead, RIP i'm going to send emails now\n\n")
+
     s = smtplib.SMTP('smtp.gmail.com', 587)
     s.starttls()
     s.login("{YOUR EMAIL}@gmail.com", "{YOUR PASSWORD}") ##Type your email and password here
@@ -129,6 +132,9 @@ def send_email():
     msg['From'] = sender
     msg['To'] = ", ".join(recipients)
     s.sendmail(sender, recipients, msg.as_string())
+    
+    input("\n\nEmails, Sent!\n\n(Press Enter To Leave!)\n\n")
+
 
 
 
