@@ -1,7 +1,17 @@
-# Dead-man's-switch
+# Dead man's switch
 An open source alt for https://www.deadmansswitch.net/ that written in python
 ___
 **I'm done now from developing it** *but that does not mean when idea come to my head i won't add it it just you wont find the script updates daily or something and your ideas, bugs, questions or anything are welcomed to issues requestes*
+## WTFrick is that ?
+It's an app that sends emails to all people you select after you die in case you wanted to say last words or there is info like bank accouns or your PC password or anything you wanted to say
+___
+## How It Works:
+First it will check date of your PC and if date is right (along with it's base64 as sort of security) it will ask you to add your password (that you will setup first time you open the app) then it will add one more day to the file to come back next day and do the same
+
+**NOTE**: first time files **MUST** be empty (*today_date.txt, tmr_date.txt and tmr_date_hash.txt*) and do not play in files because if you did the app will send emails so just keep everything in place and if you want to move it just move the script with files
+___
+## How to use it:
+All you need is python (of course) then install this package `pip install keyring` to ensure you not get errors and go to "send_email()" function and add your login data, email, your people who want to send them emails and the message itself and that's it you are ready to go :) — if you got any problems or ideas or anything do not think twice and open a issue ticket to help you
 ___
 ## If you want to run the script on startup:
 
