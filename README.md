@@ -8,7 +8,7 @@ ___
 ## How It Works:
 First it will check date of your PC and if date is right (along with it's base64 as sort of security) it will ask you to add your password (that you will setup first time you open the app) then it will add one more day to the file to come back next day and do the same
 
-**NOTE**: first time files **MUST** be empty (*today_date.txt, tmr_date.txt and tmr_date_hash.txt*) and do not play in files because if you did the app will send emails so just keep everything in place and if you want to move it just move the script with files
+**NOTE**: first time file **MUST** be empty (*data.txt*) and do not play in files because if you did the app will send the emails so just keep everything in place and if you want to move it just move the script with the file
 ___
 ## How to use it:
 All you need is python (of course) then install this package `pip install keyring` to ensure you not get errors and go to "send_email()" function and add your login data, email, your people who want to send them emails and the message itself and that's it you are ready to go :) — if you got any problems or ideas or anything do not think twice and open a issue ticket to help you
