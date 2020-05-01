@@ -1,7 +1,7 @@
 # Dead man's switch
 An open source alt for https://www.deadmansswitch.net/ that written in python
 ___
-**I'm done now from developing it** *but that does not mean when idea come to my head i won't add it it just you wont find the script updates daily or something and your ideas, bugs, questions or anything are welcomed to issues requestes*
+**I'm done now from developing it** *so feel free to use it now*
 ## WTFrick is that ?
 It's an app that sends emails to all people you select after you die in case you wanted to say last words or there is info like bank accouns or your PC password or anything you wanted to say
 ___
