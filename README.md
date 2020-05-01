@@ -31,6 +31,7 @@ then move that file to startup folder or press win + r and type `shell:startup`
 ___
 If you are getting error and can't login using your gmail then go to: https://myaccount.google.com/lesssecureapps then click to allow it
 ___
-If you want run this script on your android phone (*wait unitl find a way for iPhones*) you need to install app like *termux* then run `pkg install python` then run `termux-setup-storage` and allow storage permission and now download my script into your downloads folder on phone not in SD card then on termux type `cd storage` then `cd downloads` then `python script.py` and do not forget to create the today_date.txt and tmr_date.txt files and better be empty
+## If you want to run this script on your android phone (*wait unitl find a way for iPhones*) 
+You need to install app like *termux* then run `pkg install python` then run `termux-setup-storage` and allow storage permission and now download my script into your downloads folder on phone not in SD card then on termux type `cd storage` then `cd downloads` then `python script.py` and do not forget to create the today_date.txt and tmr_date.txt files and better be empty
 ___
 ## This Script Under GNU GPL v3 License
