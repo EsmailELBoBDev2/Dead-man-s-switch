@@ -20,14 +20,13 @@ def check_day():
     if today_date == str(date.today()) + "\n":
         input("\n\nYou already checked today, Please come tomorrow!\n\n(Press Enter To Leave!)\n\n")
         exit()
-    elif tomorrow_date == str(date.today()) + "\n" and tomorrow_date_hash == str(encrypt_date(date.today())) + "\n":
+    elif tomorrow_date == str(date.today()) + "\n" and tomorrow_date_hash == str(encrypt_date(date.today())):
         login()
     elif today_date == [] and tomorrow_date == [] and tomorrow_date_hash == []:
         login()
     else:
         send_email()
-        check_day()
-
+        exit()
 
 
 ## Checks password right
@@ -82,7 +81,7 @@ def add_day():
     # decrypt = base64.decodebytes(today_date)
     # decrypt2 = base64.decodebytes(end_date)
 
-    data = write_to_files("data.txt", "w", "Today Date: " + "\n" + str(date.today()) + "\n\n" + "Tomorrow Date: " + "\n" + str(date.today() + timedelta(days=1)) + "\n\n" + "Tomorrow Hash: " + "\n" + str(encrypt_date(date.today() + timedelta(days=1))) + "\n\n")
+    data = write_to_files("data.txt", "w", "Today Date: " + "\n" + str(date.today()) + "\n\n" + "Tomorrow Date: " + "\n" + str(date.today() + timedelta(days=1)) + "\n\n" + "Tomorrow Hash: " + "\n" + str(encrypt_date(date.today() + timedelta(days=1))))
     
 
 ## To ensure safty of saved dates
