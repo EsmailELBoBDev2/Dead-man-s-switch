@@ -31,7 +31,10 @@ def check_day():
 
 ## Checks password right
 def login():
-    user_password_input = input("Please type your password(or `exit` to leave or press ctrl + c): ") ## Here is your pass-code. If it's right the file will be written in tomorrow's date
+    
+
+    user_password_input = getpass.getpass("Please type your password(or `exit` to leave or press ctrl + c): ")
+ ## Here is your pass-code. If it's right the file will be written in tomorrow's date
 
     if user_password_input == user_password():
         add_day()
@@ -44,7 +47,7 @@ def login():
     elif user_password_input != user_password():
         def retry_password():
             for password_again in range(3):
-                user_password_again = input("Password is wrong, Please type your password: ")
+                user_password_again = getpass.getpass("Password is wrong, please try again (it's case sensitive): ")
                 if user_password_again == user_password():
                     add_day()
                     return True
@@ -69,8 +72,6 @@ def user_password():
         keyring.set_password(app_name, user_name, user_password_input)
 
 
-#     elif keyring.get_password(app_name, user_name) != None:
-    
     user_password = keyring.get_password(app_name, user_name)
     return user_password
 
@@ -79,14 +80,14 @@ def user_password():
 
 ## Adds day on today's date to check next time when you open
 def add_day():
-    input("\n\nGlad to hear that you are alive!\ncome back tomorrow!\n\n(Press Enter To Leave!)\n\n")
     
+    data = write_to_files("data.txt", "w", "Today Date: " + "\n" + str(date.today()) + "\n\n" + "Tomorrow Date: " + "\n" + str(date.today() + timedelta(days=1)) + "\n\n" + "Tomorrow Hash: " + "\n" + str(encrypt_date(date.today() + timedelta(days=1))))
+    input("\n\nGlad to hear that you are alive!\ncome back tomorrow!\n\n(Press Enter To Leave!)\n\n")
+
     ## Use this code if you want to "decrypt" the base64, for me i not need it --until now--
     # decrypt = base64.decodebytes(today_date)
     # decrypt2 = base64.decodebytes(end_date)
 
-    data = write_to_files("data.txt", "w", "Today Date: " + "\n" + str(date.today()) + "\n\n" + "Tomorrow Date: " + "\n" + str(date.today() + timedelta(days=1)) + "\n\n" + "Tomorrow Hash: " + "\n" + str(encrypt_date(date.today() + timedelta(days=1))))
-    
 
 ## To ensure safty of saved dates
 def encrypt_date(data):
@@ -160,4 +161,5 @@ def send_email():
 # notify_thereder()
 ## Start the app
 check_day()
+
 
