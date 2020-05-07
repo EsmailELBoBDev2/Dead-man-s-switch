@@ -31,7 +31,10 @@ def check_day():
 
 ## Checks password right
 def login():
-    user_password_input = input("Please type your password(or `exit` to leave or press ctrl + c): ") ## Here is your pass-code. If it's right the file will be written in tomorrow's date
+    
+
+    user_password_input = getpass.getpass("Please type your password(or `exit` to leave or press ctrl + c): ")
+ ## Here is your pass-code. If it's right the file will be written in tomorrow's date
 
     if user_password_input == user_password():
         add_day()
@@ -44,8 +47,8 @@ def login():
     elif user_password_input != user_password():
         def retry_password():
             for password_again in range(3):
-                user_password_again = input("Password is wrong, Please type your password: ")
-                if user_password_again.lower() == user_password():
+                user_password_again = getpass.getpass("Password is wrong, please try again (it's case sensitive): ")
+                if user_password_again == user_password():
                     add_day()
                     return True
                     break
@@ -61,28 +64,30 @@ def login():
 
 def user_password():
     app_name = 'Dead Man Swtich APP'
-    user_name = getpass.getuser()
+    user_name = getpass.getuser() ##Gets your username, you not need it actually it just to know for which user password is set 
 
+    ## If password not found in your keyring it will ask you to add one
     if keyring.get_password(app_name, user_name) == None:
-        user_password_input = input("I assume it's your first time here so please add your password(first time only): ")
+        user_password_input = input("I assume it's your first time here so please add your password(first time only and it's case sensitive): ")
         keyring.set_password(app_name, user_name, user_password_input)
-        user_password = keyring.get_password(app_name, user_name)
-        return user_password
 
-    elif keyring.get_password(app_name, user_name) != None:
-        user_password = keyring.get_password(app_name, user_name)
-        return user_password    
+
+    user_password = keyring.get_password(app_name, user_name)
+    return user_password
+
+
 
 
 ## Adds day on today's date to check next time when you open
 def add_day():
-    input("\n\nGlad to hear that you are alive!\ncome back tomorrow!\n\n(Press Enter To Leave!)\n\n")
     
+    data = write_to_files("data.txt", "w", "Today Date: " + "\n" + str(date.today()) + "\n\n" + "Tomorrow Date: " + "\n" + str(date.today() + timedelta(days=1)) + "\n\n" + "Tomorrow Hash: " + "\n" + str(encrypt_date(date.today() + timedelta(days=1))))
+    input("\n\nGlad to hear that you are alive!\ncome back tomorrow!\n\n(Press Enter To Leave!)\n\n")
+
+    ## Use this code if you want to "decrypt" the base64, for me i not need it --until now--
     # decrypt = base64.decodebytes(today_date)
     # decrypt2 = base64.decodebytes(end_date)
 
-    data = write_to_files("data.txt", "w", "Today Date: " + "\n" + str(date.today()) + "\n\n" + "Tomorrow Date: " + "\n" + str(date.today() + timedelta(days=1)) + "\n\n" + "Tomorrow Hash: " + "\n" + str(encrypt_date(date.today() + timedelta(days=1))))
-    
 
 ## To ensure safty of saved dates
 def encrypt_date(data):
@@ -122,11 +127,11 @@ def send_email():
 
     s = smtplib.SMTP('smtp.gmail.com', 587)
     s.starttls()
-    s.login("{YOUR EMAIL}@gmail.com", "{YOUR PASSWORD}") ##Type your email and password here
+    s.login("YOUR EMAIL@gmail.com", "YOUR PASSWORD") ##Type your email and password here
     s.set_debuglevel(1)
     msg = MIMEText("""BODY OF THE EMAIL (The message)""") ##Type your message here
-    sender = '{YOUR EMAIL}@gmail.com' ##Again, type your email here
-    recipients = ['{YOUR Friend}@gmail.com', '{Your Family}@hotmail.com', '{Your Teacher}@yahoo.com'] ##type people to send them the email here
+    sender = 'YOUR EMAIL@gmail.com' ##Again, type your email here
+    recipients = ['YOUR Friend@gmail.com', 'Your Family@hotmail.com', 'Your Teacher@yahoo.com'] ##type people to send them the email here
     msg['Subject'] = "SUBJECT OF THE EMAIL (The Title/Name)" ##subject of the email
     msg['From'] = sender
     msg['To'] = ", ".join(recipients)
@@ -145,7 +150,7 @@ def send_email():
 #     while True:
 #         notify = Notify()
 #         notify.send('Dead Man\'s Switch App\nDo not forget to Check Your Dead Man\'s switch app')
-#         time.sleep(21600.0 - ((time.time() - starttime) % 60.0)) # Time in seconds
+#         time.sleep(21600.0 - ((time.time() - starttime) % 60.0)) ## Time in seconds, it will repeat every 6 hours
 
 
 # def notify_thereder():
@@ -156,4 +161,5 @@ def send_email():
 # notify_thereder()
 ## Start the app
 check_day()
+
 
