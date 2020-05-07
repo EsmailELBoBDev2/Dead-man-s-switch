@@ -7,7 +7,7 @@ from datetime import datetime, timedelta, date
 
 ##  Check for days, If date right and if not i will send emails  
 def check_day():
-    ## Checks if list "out or range" or in other words that file is empty it will set values to nothing to make you login
+    ## Check if list "out of range" or in other words that file is empty it will set values to nothing to make you login
     try:
         today_date = read_from_files("data.txt", "r")[1]
         tomorrow_date = read_from_files("data.txt", "r")[4]
@@ -56,7 +56,7 @@ def login():
 
         if retry_password() != True:
             send_email()
-            check_day()
+            exit()
 
 
 def user_password():
