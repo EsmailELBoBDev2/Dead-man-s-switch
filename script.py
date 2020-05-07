@@ -31,19 +31,14 @@ def check_day():
 
 ## Checks password right
 def login():
-    
-
     user_password_input = getpass.getpass("Please type your password(or `exit` to leave or press ctrl + c): ")
- ## Here is your pass-code. If it's right the file will be written in tomorrow's date
+ ## Here is your pass-code. If it's right you will be able to login to add tomorrow's date
 
     if user_password_input == user_password():
         add_day()
-
     elif user_password_input.lower() == "exit":
         kill = 'pkill -f ' + os.path.basename(__file__) ## `os.path.basename(__file__)` code gets current name of this script so no need to update the name here everytime you change the script's name
         os.system(kill)
-
-
     elif user_password_input != user_password():
         def retry_password():
             for password_again in range(3):
