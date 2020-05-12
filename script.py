@@ -20,11 +20,11 @@ def check_day():
         tomorrow_date_hash = []
 
    ## Check for the date as i said above!
-    if today_date == str(date.today()) + "\n":
+    if today_date == str(date.today()):
         input("\n\nYou already checked today, Please come tomorrow!\n\n(Press Enter To Leave!)\n\n")
         exit()
     
-    elif tomorrow_date == str(date.today()) + "\n" and tomorrow_date_hash == str(encrypt_date(date.today())):
+    elif tomorrow_date == str(date.today()) and tomorrow_date_hash == str(encrypt_date(date.today())):
         login()
     
     elif today_date == [] and tomorrow_date == [] and tomorrow_date_hash == []:
@@ -38,8 +38,7 @@ def check_day():
 def login():
     """This Function check for password and password saved in your keyring so do not worry!"""
 
-    user_password_input = getpass.getpass("Please type your password(or `exit` to leave or press ctrl + c): ")
- ## Here is your password. If it's right you will be able to login to add tomorrow's date
+    user_password_input = getpass.getpass("Please type your password(or `exit` to leave or press ctrl + c): ") ## Here is your password. If it's right you will be able to login to add tomorrow's date
 
     if user_password_input == user_password():
         add_day()
@@ -111,7 +110,7 @@ def read_from_files(fileName, accessMode):
 
     try:
         with open(fileName, accessMode) as name:
-            file = name.readlines()
+            file = name.read().splitlines()
         return file
     except FileNotFoundError:
         input("Please create a file called 'data.txt'\n\n(Press Enter To Leave!)\n\n")
@@ -119,7 +118,6 @@ def read_from_files(fileName, accessMode):
         input("\n\nOops, something went wrong\n\n(Press Enter To Leave!)\n\n")   
 
 
-# Write Dates to files
 def write_to_files(fileName, accessMode, data):
     """This function write to files the data"""
 
@@ -138,14 +136,14 @@ def send_email():
 
     print("\n\nSeems you dead, RIP i'm going to send emails now\n\n")
 
-    s = smtplib.SMTP('smtp.gmail.com', 587)
+    s = smtplib.SMTP('smtp.gmail.com', 587) ##You can change SMTP to your email's one, just ask their support! and type your login data as it's same as you just login with their login page
     s.starttls()
-    s.login("YOUR EMAIL@gmail.com", "YOUR PASSWORD") ##Type your email and password here
+    s.login("YOUR_EMAIL@gmail.com", "YOUR_PASSWORD") ##Type your email and password here to login
     s.set_debuglevel(1)
     msg = MIMEText("""BODY OF THE EMAIL (The message)""", "plain") ##Type your message here and Change "plain" to "html" (with quotes) if you want to type HTML email instead!
 
 
-    ## An example of HTML email
+    ## An example of HTML email and you could use https://html5-editor.net/ as help if you do not know HTML
 
     # msg = MIMEText("""\
     #     <html>
@@ -160,14 +158,14 @@ def send_email():
     #     """, 'html')
 
 
-    sender = 'YOUR EMAIL@gmail.com' ##Again, type your email here
-    recipients = ['YOUR Friend@gmail.com', 'Your Family@hotmail.com', 'Your Teacher@yahoo.com'] ##type people to send them the email here
+    sender = 'YOUR_EMAIL@gmail.com' ##Type your email again or your name/username
+    recipients = ['YOUR_Friend@gmail.com', 'Your_Family@hotmail.com', 'Your_Teacher@yahoo.com'] ##type people to send them the email here
     msg['Subject'] = "SUBJECT OF THE EMAIL (The Title/Name)" ##subject of the email
     msg['From'] = sender
     msg['To'] = ", ".join(recipients)
     s.sendmail(sender, recipients, msg.as_string())
     
-    input("\n\nEmails, Sent!\n\n(Press Enter To Leave!)\n\n")
+    input("\n\nEmail(s), Sent!\n\n(Press Enter To Leave!)\n\n")
 
 
 
