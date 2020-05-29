@@ -4,6 +4,8 @@ from datetime import datetime, timedelta, date
 ## Install it `pip install notify-run`, it's what make me send you the notifications
 # from notify_run import Notify 
 
+def welcome_message():
+    return print("\nHey, Welcome To Dead Man's Switch Script\nThis Script Made By Esmail EL BoB <https://github.com/EsmailELBoBDev2>\nThis Script Under GNU GPL v3 License <https://www.gnu.org/licenses/gpl-3.0.en.html>\n\n")
 
 def check_day():
     """Check for days, If date right and if not it will send emails.
@@ -37,6 +39,9 @@ def check_day():
 
 def login():
     """This Function check for password and password saved in your keyring so do not worry!"""
+    
+    ## Prints the welcome message
+    welcome_message()
 
     user_password_input = getpass.getpass("Please type your password(or `exit` to leave or press ctrl + c): ") ## Here is your password. If it's right you will be able to login to add tomorrow's date
 
