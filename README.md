@@ -17,8 +17,9 @@ ___
 
 * Linux: Open your startup manager (*Session and Startup in xfce4*) then click on add and type the name you want and the description you want then in command field type:
 ```
-{Your Terminal Name's Here, EX: xfce4-terminal} --command "python3.8 script.py" (*which* `script.py` *is the name of the script*)
+{Your Terminal Name's Here, EX: xfce4-terminal} --command "python3.8 script.py" 
 ```
+(*which* `script.py` *is the name of the script*)
 then move the script.py to your home dir (*or where you want but do not forget to write full path*)
 
 
