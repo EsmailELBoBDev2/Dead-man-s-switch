@@ -5,7 +5,10 @@ from datetime import datetime, timedelta, date
 # from notify_run import Notify 
 
 def welcome_message():
-    return print("\nHey, Welcome To Dead Man's Switch Script\nThis Script Made By Esmail EL BoB <https://github.com/EsmailELBoBDev2>\nThis Script Under GNU GPL v3 License <https://www.gnu.org/licenses/gpl-3.0.en.html>\n\n")
+    """Prints the welcome message"""
+    
+    msg = "\nHey, Welcome To Dead Man's Switch Script\nThis Script Made By Esmail EL BoB <https://github.com/EsmailELBoBDev2>\nThis Script Under GNU GPL v3 License <https://www.gnu.org/licenses/gpl-3.0.en.html>\n\n"
+    return print(msg)
 
 def check_day():
     """Check for days, If date right and if not it will send emails.
@@ -30,6 +33,7 @@ def check_day():
         login()
     
     elif today_date == [] and tomorrow_date == [] and tomorrow_date_hash == []:
+        welcome_message()
         login()
     
     else:
@@ -40,9 +44,6 @@ def check_day():
 def login():
     """This Function check for password and password saved in your keyring so do not worry!"""
     
-    ## Prints the welcome message
-    welcome_message()
-
     user_password_input = getpass.getpass("Please type your password(or `exit` to leave or press ctrl + c): ") ## Here is your password. If it's right you will be able to login to add tomorrow's date
 
     if user_password_input == user_password():
@@ -94,7 +95,7 @@ def add_day():
 
     data = write_to_files("data.txt", "w", "Today Date: " + "\n" + str(date.today()) + "\n\n" + "Tomorrow Date: " + "\n" + str(date.today() + timedelta(days=1)) + "\n\n" + "Tomorrow Hash: " + "\n" + str(encrypt_date(date.today() + timedelta(days=1))))
 
-    input("\n\nGlad to hear that you are alive!\ncome back tomorrow!\n\n(Press Enter To Leave!)\n\n")
+    input("\n\nGlad to hear that you are alive! Come back tomorrow!\n\n(Press Enter To Leave!)\n\n")
 
     ## Use this code if you want to "decrypt" the base64, for me i not need it --until now--
     # decrypt = base64.decodebytes(today_date)
