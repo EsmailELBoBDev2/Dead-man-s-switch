@@ -9,7 +9,7 @@ from datetime import datetime, timedelta, date
 def welcome_message():
     """Prints the welcome message"""
     
-    msg = "\nHey, Welcome To Dead Man's Switch Script\nThis Script Made By Esmail EL BoB <https://github.com/EsmailELBoBDev2>\nThis Script Under GNU GPL v3 License <https://www.gnu.org/licenses/gpl-3.0.en.html>\n\n# Finally, Some Good Fucking Script\n\n"
+    msg = "\nHey, Welcome To Dead Man's Switch Script\nThis Script Made By Esmail EL BoB <https://github.com/EsmailELBoBDev2>\nThis Script Under GNU GPL v3 License <https://www.gnu.org/licenses/gpl-3.0.en.html>\n\n# Finally, Some Good Fucking Script <https://yerl.org/rw4fr>\n\n"
     return print(msg)
 
 def check_day():
