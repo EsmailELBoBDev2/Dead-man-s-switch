@@ -1,3 +1,5 @@
+"""Dead man's script as an alt for dead man's switch website"""
+
 import smtplib, threading, os, time, getpass, base64, keyring ## Install it `pip install keyring`, if you are using KWallet please see: https://github.com/jaraco/keyring#installation---linux
 from email.mime.text import MIMEText
 from datetime import datetime, timedelta, date
@@ -7,7 +9,7 @@ from datetime import datetime, timedelta, date
 def welcome_message():
     """Prints the welcome message"""
     
-    msg = "\nHey, Welcome To Dead Man's Switch Script\nThis Script Made By Esmail EL BoB <https://github.com/EsmailELBoBDev2>\nThis Script Under GNU GPL v3 License <https://www.gnu.org/licenses/gpl-3.0.en.html>\n\n"
+    msg = "\nHey, Welcome To Dead Man's Switch Script\nThis Script Made By Esmail EL BoB <https://github.com/EsmailELBoBDev2>\nThis Script Under GNU GPL v3 License <https://www.gnu.org/licenses/gpl-3.0.en.html>\n\n# Finally, Some Good Fucking Script\n\n"
     return print(msg)
 
 def check_day():
