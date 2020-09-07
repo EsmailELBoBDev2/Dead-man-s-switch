@@ -6,10 +6,9 @@ from datetime import datetime, timedelta, date
 ## Install it `pip install notify-run`, it's what make me send you the notifications
 # from notify_run import Notify 
 
-def welcome_message():
-    """Prints the welcome message"""
-    
-    msg = "\nHey, Welcome To Dead Man's Switch Script\nThis Script Made By Esmail EL BoB <https://github.com/EsmailELBoBDev2>\nThis Script Under GNU GPL v3 License <https://www.gnu.org/licenses/gpl-3.0.en.html>\n\n# Finally, Some Good Fucking Script <https://yerl.org/rw4fr>\n\n"
+def messages(msg):
+    """Prints the messages"""
+ 
     return print(msg)
 
 def check_day():
@@ -35,7 +34,7 @@ def check_day():
         login()
     
     elif today_date == [] and tomorrow_date == [] and tomorrow_date_hash == []:
-        welcome_message()
+        messages("\nHey, Welcome To Dead Man's Switch Script\nThis Script Made By Esmail EL BoB <https://github.com/EsmailELBoBDev2>\nThis Script Under GNU GPL v3 License <https://www.gnu.org/licenses/gpl-3.0.en.html>\n\n# Finally, Some Good Fucking Script <https://yerl.org/rw4fr>\n\n")
         login()
     
     else:
@@ -142,7 +141,7 @@ def write_to_files(fileName, accessMode, data):
 def send_email():
     """This function send emails to people"""
 
-    print("\n\nSeems you dead, RIP i'm going to send emails now\n\n")
+    messages("\n\nSeems you dead, RIP i'm going to send emails now\n\n")
 
     s = smtplib.SMTP('smtp.gmail.com', 587) ##You can change SMTP to your email's one, just ask their support! and type your login data as it's same as you just login with their login page
     s.starttls()
