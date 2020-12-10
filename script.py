@@ -69,7 +69,7 @@ def login():
                     return True
                     break
 
-        if retry_password() != True:
+        if retry_password() is True:
             send_email()
             exit()
 
