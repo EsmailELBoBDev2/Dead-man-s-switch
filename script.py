@@ -64,7 +64,7 @@ def login():
                     add_day()
                     return True
                     break
-                elif user_password_again.lower() == "exit":
+                if user_password_again.lower() == "exit":
                     kill = 'pkill -f ' + os.path.basename(__file__) ## `os.path.basename(__file__)` code gets current name of this script so no need to update the name here everytime you change the script's name
                     return True
                     break
