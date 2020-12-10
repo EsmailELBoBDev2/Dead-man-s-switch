@@ -1,7 +1,8 @@
-"""Dead man's script as an alt for dead man's switch website"""
 
 import smtplib, os, time, getpass, base64, keyring ## Install it `pip install keyring`, if you are using KWallet please see: https://github.com/jaraco/keyring#installation---linux
 from email.mime.text import MIMEText
+from datetime import datetime, timedelta, date
+import sys
 from datetime import datetime, timedelta, date
 ## Install it `pip install notify-run`, it's what make me send you the notifications
 # from notify_run import Notify 
@@ -29,7 +30,7 @@ def check_day():
    ## Check for the date as i said above!
     if today_date == str(date.today()):
         input("\n\nYou already checked today, Please come tomorrow!\n\n(Press Enter To Leave!)\n\n")
-        exit()
+        sys.exit()
     
     elif tomorrow_date == str(date.today()) and tomorrow_date_hash == str(encrypt_date(date.today())):
         login()
@@ -40,7 +41,7 @@ def check_day():
     
     else:
         send_email()
-        exit()
+        sys.exit()
 
 
 def login():
@@ -71,7 +72,7 @@ def login():
 
         if retry_password() != True:
             send_email()
-            exit()
+            sys.exit()
 
 
 def user_password():
